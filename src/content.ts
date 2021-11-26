@@ -12,25 +12,25 @@ snowflake.className = "snowflake";
 snowflake.innerHTML = "❆";
 
 for (let i = 0; i < 12; i++) {
-  snowflakesContainer.appendChild(snowflake.cloneNode(true));
+    snowflakesContainer.appendChild(snowflake.cloneNode(true));
 }
 
 chrome.runtime.sendMessage({ type: "REQ_SNOW_STATUS" });
 
 let snowing = false;
 chrome.runtime.onMessage.addListener((message: MessageTypes) => {
-  switch (message.type) {
-    case "SNOW_STATUS":
-      if (message.snowing) {
-        if (!snowing) {
-          body[0]?.prepend(snowflakesContainer);
-        }
-      } else {
-        snowflakesContainer.parentNode?.removeChild(snowflakesContainer);
-      }
-      snowing = message.snowing;
-      break;
-    default:
-      break;
-  }
+    switch (message.type) {
+        case "SNOW_STATUS":
+            if (message.snowing) {
+                if (!snowing) {
+                    body[0]?.prepend(snowflakesContainer);
+                }
+            } else {
+                snowflakesContainer.parentNode?.removeChild(snowflakesContainer);
+            }
+            snowing = message.snowing;
+            break;
+        default:
+            break;
+    }
 });
